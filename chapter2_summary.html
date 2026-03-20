@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2 Summary — Symmetry in Magnetism</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+  :root {
+    --gold: #c9a84c;
+    --gold-dim: #8a6d2b;
+    --deep: #0a0a0f;
+    --panel: #111118;
+    --panel-edge: #1a1a25;
+    --text: #d4d0c8;
+    --text-dim: #7a7770;
+    --accent: #4a8fa8;
+    --accent2: #7b5ea7;
+    --red: #a85a4a;
+    --green: #5a9a6a;
+    --s-color: #4a8fa8;
+    --t-color: #c06848;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .grain {
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  header {
+    text-align: center;
+    padding: 80px 20px 50px;
+    position: relative; overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    width: 500px; height: 500px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  header h1 {
+    font-family: 'Cinzel', serif; font-weight: 900;
+    font-size: clamp(28px, 5vw, 48px); color: var(--gold);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+    text-shadow: 0 0 60px rgba(201,168,76,0.15);
+  }
+
+  header .subtitle {
+    font-family: 'Cinzel', serif; font-weight: 400;
+    font-size: clamp(13px, 2vw, 17px); color: var(--text-dim);
+    letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 30px;
+  }
+
+  header .divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin: 0 auto 25px;
+  }
+
+  header .intro {
+    max-width: 700px; margin: 0 auto;
+    font-size: 16px; color: var(--text-dim); font-style: italic;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+  .section { margin-bottom: 44px; }
+
+  .section .sec-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--gold-dim); letter-spacing: 0.25em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .section h2 {
+    font-family: 'Cinzel', serif; font-weight: 700;
+    font-size: clamp(20px, 3vw, 26px); color: var(--gold);
+    margin-bottom: 14px; line-height: 1.3;
+  }
+
+  .section p { margin-bottom: 14px; }
+
+  .key-law {
+    background: var(--panel); border-left: 3px solid var(--gold-dim);
+    padding: 16px 20px; margin: 18px 0; border-radius: 0 6px 6px 0;
+    font-style: italic; color: var(--gold); font-size: 16px; line-height: 1.65;
+  }
+
+  .key-law .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase;
+    font-style: normal; display: block; margin-bottom: 6px;
+  }
+
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0;
+  }
+
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  .field-card {
+    background: var(--panel); border: 1px solid var(--panel-edge);
+    border-radius: 6px; padding: 18px;
+  }
+
+  .field-card h4 {
+    font-family: 'Cinzel', serif; font-size: 14px;
+    letter-spacing: 0.1em; margin-bottom: 8px;
+  }
+
+  .field-card.s-field { border-top: 2px solid var(--s-color); }
+  .field-card.s-field h4 { color: var(--s-color); }
+  .field-card.t-field { border-top: 2px solid var(--t-color); }
+  .field-card.t-field h4 { color: var(--t-color); }
+  .field-card.gold-card { border-top: 2px solid var(--gold); }
+  .field-card.gold-card h4 { color: var(--gold); }
+  .field-card.purple-card { border-top: 2px solid var(--accent2); }
+  .field-card.purple-card h4 { color: var(--accent2); }
+
+  .field-card p, .field-card ul {
+    font-size: 14.5px; color: var(--text-dim); line-height: 1.6;
+  }
+
+  .field-card ul { padding-left: 18px; }
+  .field-card li { margin-bottom: 5px; }
+
+  .section-break {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--panel-edge), transparent);
+    margin: 48px auto;
+  }
+
+  .footer-note {
+    text-align: center; padding: 30px 20px;
+    border-top: 1px solid var(--panel-edge); margin-top: 50px;
+    font-size: 13px; color: var(--text-dim); font-style: italic;
+  }
+
+  strong { color: var(--gold); font-weight: 600; }
+  em { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <h1>Chapter 2</h1>
+  <div class="subtitle">Symmetry in Magnetism &mdash; Summary</div>
+  <div class="divider"></div>
+  <p class="intro">
+    How the abstract laws of Chapter 1 manifest in the concrete behaviour of magnets, electricity, dipoles, and cosmic circuitry &mdash; from the iron bar on your desk to the birth of the sun.
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 1 &mdash; An Attractive Mineral</div>
+    <h2>How a Magnet Works in Symmetric Field Terms</h2>
+
+    <p>An iron bar magnet is immersed in the ST Field like everything else. Inside the bar, iron atoms form long lines from one end to the other. These atoms oscillate and act like <strong>propellers on a motor boat</strong> &mdash; they push the ST Field out one end and pull it in the other. Between the atomic lines, the ST Field fills all the space.</p>
+
+    <p>The shape and spin of the iron atoms determine the field's directional preference. The <strong>T Field is driven out the North end</strong> of the magnet, and the <strong>S Field is driven out the South end</strong>. The number of atomic lines and the density of the magnet determine how far the surrounding fields are affected.</p>
+
+    <p>Because it is the nature of T Field to CLOSE in on itself (to &ldquo;take its own tail in its mouth&rdquo;), the T Field emerging from the North end seeks to rejoin itself near the South end. It forms a <strong>circuit loop</strong> &mdash; through the magnet, around the outside, back through again. Each passage through one atomic line may form a separate circuit. Meanwhile, S Field swirls in the opposite direction, forming spreading sheaths around each T Field line, giving it definition and separating one line from another. Bundles of lines spread outward in an <strong>apple shape</strong> around the magnet.</p>
+
+    <div class="key-law">
+      <span class="label">Vital Engineering Principle</span>
+      Force is only functional when it confronts something &ldquo;like-unlike&rdquo; or equal and opposite to itself. Force acts upon fields of its own octave speeds and is not noticeable as force in other octaves. This fact is vitally important to all engineers.
+    </div>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 2 &mdash; Magnet Interactions</div>
+    <h2>Why Magnets Attract and &ldquo;Repel&rdquo;</h2>
+
+    <p><strong>N-to-N or S-to-S:</strong> Opposing directional flows of the same field type butt against each other. The flows are pushed aside to prevent collision. This creates the <em>sensation</em> of repelling, but it is actually opposing field flows being diverted &mdash; not true repulsion.</p>
+
+    <p><strong>N-to-S:</strong> The lines of force are fully compatible. T Fields CLOSE in the normal way, S Fields continue wrapping around each T Field line. One unified circuit forms instead of two, and a single field sphere encompasses the whole.</p>
+
+    <p>An important observation: this harmonic integration is <em>slow</em>. If you pass a small magnet rapidly and perpendicularly through the force field of a larger magnet, it shows little attraction. Moved very slowly, the attraction becomes evident. The whole of each sphere has to sense the harmonies of the other and <strong>agree to form a common sphere and axis</strong>. This slow harmonic integration plays a vital role in engineering.</p>
+
+    <p>Note also: an iron magnet does not exert force on a bar of copper or brass because their atomic structures differ &mdash; they do not have compatible vibrations. Force is unique to its own octave. However, gravity engages <em>all</em> materials because gravity is a grand overtone of oscillations.</p>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 3 &mdash; Seek and Find</div>
+    <h2>How T Field &ldquo;Finds Its Own Tail&rdquo;</h2>
+
+    <p>A T Field line can recognize its own kind over great distances and then proceed to CLOSE with it. This happens because no moving field line travels alone &mdash; it is always accompanied by the <strong>USUT Fields</strong>, which have great outreach.</p>
+
+    <p>As a field line bifurcates and forms a center, it also describes the largest possible sphere around the whole. This sphere has surface tension (both S and T Field in motion) and communication along its radii. The magnetic &ldquo;python&rdquo; can easily seek and find its own tail in this circumscribed environment. <strong>&ldquo;What reaches out, comes around.&rdquo;</strong></p>
+
+    <div class="key-law">
+      <span class="label">Meridian Plate Circuits</span>
+      Each flux loop through the magnet forms a flattened sphere &mdash; so deformed by pressures that it becomes almost two-dimensional, like a plate. Its center lies on the equatorial Y/Z axis. Millions of these meridian plate circuits pack around the magnet in an apple shape, alternating in T Field and S Field predominance, each with a distinct center point on the equatorial plane.
+    </div>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 4 &mdash; What Is Electricity?</div>
+    <h2>Electrons Are Created from the ST Field by Circuit Loops</h2>
+
+    <p>This is a pivotal section. Each T Field circuit loop (the snake biting its own tail) can also grab hold of the tail of its <em>neighbour</em> line. The neighbour grabs the next, and so on. Within a second, continuous looping lines form a <strong>toroid</strong>. Inside the magnet, atomic motors continue driving the field flow. The toroid now has a secondary direction of flow &mdash; perpendicular to the first &mdash; spinning the equatorial plane like a phonograph record.</p>
+
+    <p>Each T Field center of each circuit loop carries a <strong>discrete quantum of energy</strong> proportional to the speed of the circuit flow. These centres spin in concentric orbits on the equatorial plane.</p>
+
+    <div class="key-law">
+      <span class="label">The Birth of the Electron</span>
+      When the field flow in the circuit loop makes a radical shift, the center (previously created quanta of field) is set free of its location. This center &mdash; which you call an <strong>electron</strong> &mdash; will travel on any T Field path to &ldquo;ground.&rdquo; The new position of the circuit loop forms a new center. As the circuit makes another change, another electron is set free. This is how you power your civilization: courtesy of the ST Fields, and a few magnets.
+    </div>
+
+    <p>There are two ways electron centres move: (1) when circuit loops rise or fall suddenly &mdash; shocking the centre out of position, or (2) when circuit loops show a steady flow. By alternating the poles of an electromagnet, circuit loops show sudden falls to zero, releasing electrons onto a grounded wire. As an old centre is taken away, a new one forms in its place. <strong>You create usable energy directly from the ST Fields.</strong></p>
+
+    <p>Conversely, winding a wire into a coil (a solenoid) and running current through it duplicates a magnetic field flow &mdash; creating an &ldquo;unnatural&rdquo; magnet. A current traveling in a toroid creates a <strong>dipole</strong>. A dipole is a <strong>vortex</strong>.</p>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 5 &mdash; The Dipole Vortex Law</div>
+    <h2>Field Flow Through a Vortex Carries &mdash; and Multiplies &mdash; the Complete Message</h2>
+
+    <p>When a loop of field circuitry, travelling at a specific speed, encloses an area of field, bundles of fields begin to move and flow like a river through the vortex in the direction of the galactic principle (&ldquo;right hand rule&rdquo;). The entire speed, vibration, and detailed signal is copied in all parts of the field moving through the vortex.</p>
+
+    <div class="key-law">
+      <span class="label">The Dipole Vortex Law</span>
+      Field flow through the vortex of a dipole carries the complete message of the dipole current in every part of the orifice. Any identifying condition of the toroid dipole is multiplied any number of times within the orifice. Here is the principle of S Field multiplication at work.
+    </div>
+
+    <p>The reverse is also true: any field flow through a vortex creates a current in the dipole which accurately duplicates the messages of the flow. Current or field flow carries detailed messages with vast amounts of encoded information. Your eye is a perfect example &mdash; the pupil is a pinpoint vortex within a larger vortex, selecting one bundle of coded light. The retina converts signals into discrete quanta, carried as current to the brain.</p>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 6 &mdash; Electronics &amp; the Human Body</div>
+    <h2>You Are an &ldquo;Electronic&rdquo; Being &mdash; and the Electron Octave Is Not the Best for You</h2>
+
+    <p>The chapter takes a sharp turn into biology. The speed (quanta) that identifies the electron and its S Field partner is not ideal for animal cells &mdash; it throws the balance of fields too far into the heavy metal octaves. The human spirit seeks a much finer, higher, faster frequency. Even the speed of gravity is considered burdensome for the soul.</p>
+
+    <p>Your environment is crisscrossed with electron signals and particles, placing a burden on individuals to alter the signals within their own bodies, particularly the brain and chakras. The chapter recommends:</p>
+
+    <div class="two-col">
+      <div class="field-card gold-card">
+        <h4>Working with Natural Vibrations</h4>
+        <ul>
+          <li>Sense vibrations of crystals: quartz, tourmaline, beryl, spodumene, celestite, lepidolite</li>
+          <li>Each stone has a specific correspondence to your biology</li>
+          <li>Sense vibrations of plants, flowers, and seeds</li>
+          <li>Learn to identify and <em>become</em> those vibrations internally</li>
+          <li>This exercises your god-given &ldquo;electronic&rdquo; systems at a life-producing frequency level</li>
+        </ul>
+      </div>
+      <div class="field-card purple-card">
+        <h4>The Dipole Vortexes in Your Body</h4>
+        <ul>
+          <li>The &ldquo;third eye&rdquo; &mdash; an invisible orifice in the forehead that sends and receives coded information</li>
+          <li>Similar orifices above each ear for decoding subtle sound</li>
+          <li>Orifices at each chakra point and each sensory organ</li>
+          <li>The throat chakra acts as an electronic &ldquo;ground&rdquo;</li>
+          <li>All operate by the same dipole vortex law as magnets and galaxies</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>A serious warning is included: among the visible genes in your DNA are <strong>invisible genes full of circuitry</strong>, including genes from the Star People. If you turn your biological &ldquo;electronic&rdquo; system over to man-made mechanisms, you will be slowly debilitated. &ldquo;Use it or lose it.&rdquo;</p>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Section 7 &mdash; The Cosmic Connection</div>
+    <h2>From the Magnet to the Galaxy &mdash; The Same Laws at Every Scale</h2>
+
+    <p>The chapter's grand finale bridges the iron bar magnet to cosmic architecture. The same dipolar toroidal circuitry that operates in a desk magnet operates in the earth and in the galaxy &mdash; at different scales, with different octaves, but under the same law.</p>
+
+    <div class="field-card gold-card" style="margin: 20px 0;">
+      <h4>The Earth's Three Axes</h4>
+      <ul>
+        <li><strong>Geographic (Rotational) Axis:</strong> No typical mineral response. Located by watching stars. Currently tilted 23&deg; to the solar ecliptic (from an ancient comet impact). Rotation caused by spiraling solar circuit loops.</li>
+        <li><strong>Geomagnetic Axis:</strong> About 12&deg; from the rotational axis. Responds to nickel-iron. Has circuit loops like a bar magnet. N end is in Antarctica, S end is in the Arctic. Generates T Field currents from east to west on the equatorial plane. Created when the earth was molten, now fixed in the iron core (which can shift and rotate independently).</li>
+        <li><strong>Gravitational Axis:</strong> Perpendicular to the moon's orbital plane. Responsive to cosmic forces. The vital identity of the planet. Holds the moon in orbit and keeps you on the ground. (Detailed in Chapter 3.)</li>
+      </ul>
+    </div>
+
+    <h2>How the Sun Was Born</h2>
+
+    <p>The Milky Way galaxy extends its dipole's gravitational influence far beyond its faintest star. Its loops circle outward, centering quieter places where suns form. A single galactic circuit loop has a center &mdash; that center is your solar system. It supplies the energy and identity of your sun.</p>
+
+    <p>A laboratory wire with current creates concentric &ldquo;magnetic&rdquo; rings perpendicular to it. These rings join in a spiral of S Field. When the wire is twisted into a loop, the rings bundle together in the center &mdash; all travelling the same direction &mdash; creating a <strong>dynamic vortex</strong>. This is exactly what happens at the galactic scale.</p>
+
+    <p>At formation, the sun was a point in fusion radiating a vast plane of hot gases. The solar equatorial plane is the same as the plane encircled by the galactic circuit loop. The sun grew and spun off veils of primary gases. Each atom found companions, each group found complementary orbits, each orbit gathered its own kind according to speeds and the paradigm of the solar circuit loops.</p>
+
+    <p>One solar T Field circuit loop enters the top of each planet (Arctic) and exits the bottom (Antarctic), establishing the geomagnetic axis. The grand galactic dipole governs the solar ecliptic, the orbits, and planetary rotation.</p>
+
+    <div class="key-law">
+      <span class="label">Chapter's Closing Statement</span>
+      The galactic dipolar toroid, a grand circuit loop, finds its radial confluence at the sun, which it created and sustains. The sun is not a bonfire hanging in the sky. It will not burn itself out. It is continually being fuelled by the galaxy. Our Universe is organized under LAW and very little is left to chance and accident.
+    </div>
+  </div>
+
+  <div class="section-break"></div>
+
+  <!-- ============================================================ -->
+  <div class="section">
+    <div class="sec-label">Key Takeaways for Device Engineering</div>
+    <h2>What Chapter 2 Tells Us About Building Energy Devices</h2>
+
+    <div class="two-col">
+      <div class="field-card s-field">
+        <h4>The Magnet as Prototype</h4>
+        <ul>
+          <li>Iron atoms act as &ldquo;propellers&rdquo; driving the ST Field directionally</li>
+          <li>Atomic alignment and spin determine field direction</li>
+          <li>Meridian plate circuits form with centres on the equatorial plane</li>
+          <li>Electrons are <em>created from the field</em> at these centres when circuits shift</li>
+          <li>We already harvest energy from the ST Field &mdash; every generator does this</li>
+        </ul>
+      </div>
+      <div class="field-card t-field">
+        <h4>The Toroid &amp; Dipole</h4>
+        <ul>
+          <li>A current loop creates a toroid &mdash; a dipole &mdash; a vortex</li>
+          <li>The vortex <strong>multiplies</strong> the complete signal through its orifice</li>
+          <li>This is S Field multiplication &mdash; the same principle as Spherical Energy Gain</li>
+          <li>Harmonic integration is essential and takes time &mdash; slow coupling is stronger</li>
+          <li>Force is unique to its own octave &mdash; match the octave to affect the field</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The chapter's central engineering insight is that <strong>electrons are not fundamental particles that pre-exist</strong> &mdash; they are <em>created on demand</em> from the ST Field whenever circuit loops shift position. The field is the source, and the circuit geometry determines what is extracted. Other quanta can be developed from the ST Fields using other metals and crystals for purposes beyond electricity. The field flow speed can be altered at will.</p>
+  </div>
+
+  <div class="footer-note">
+    Summary of Chapter 2 from <em>Alchemical Manual for this Millennium</em>, Vol. 1, by Aaity Olson.<br>
+    Pages 20&ndash;32 &mdash; &ldquo;Symmetry in Magnetism&rdquo;
+  </div>
+
+</div>
+</body>
+</html>
